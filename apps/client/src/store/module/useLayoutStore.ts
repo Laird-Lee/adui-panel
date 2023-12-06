@@ -1,19 +1,49 @@
 import { create } from "zustand";
-import { AliasToken } from "antd/es/theme/interface";
+import type { SetState } from "zustand";
+import { persist, createJSONStorage } from "zustand/middleware";
+import type { ThemeConfig } from "antd";
+import { calculateBackgroundColor } from "../../utils";
 
 export interface ILayoutState {
-  token?: Partial<AliasToken>;
+  mode: "light" | "dark";
+  setMode: (mode: "light" | "dark") => void;
+  themeConfig: ThemeConfig;
+  originThemeConfig: ThemeConfig;
+  setTheme: (config: ThemeConfig) => void;
+  setOriginTheme: (config: ThemeConfig) => void;
   collapsed: boolean;
   setCollapsed: (collapsed: boolean) => void;
 }
 
-export const useLayoutStore = create<ILayoutState>((set) => ({
-  token: {
-    colorPrimary: "#10aec2",
-    headerBg: "#d8e3e7",
-    siderBg: "#d8e3e7",
-    footerBg: "#d8e3e7"
-  },
-  collapsed: false,
-  setCollapsed: (collapsed) => set({ collapsed })
-}));
+export const useLayoutStore = create(
+  persist(
+    (set: SetState<ILayoutState>): ILayoutState => {
+      const themeColor = "#10aec2";
+      const { shade } = calculateBackgroundColor(themeColor);
+      return {
+        mode: "light",
+        setMode: (mode) => set({ mode }),
+        themeConfig: {
+          token: {
+            colorPrimary: themeColor,
+            colorBgLayout: shade
+          }
+        },
+        setTheme: (config) => set({ themeConfig: config }),
+        originThemeConfig: {
+          token: {
+            colorPrimary: themeColor,
+            colorBgLayout: shade
+          }
+        },
+        setOriginTheme: (config) => set({ themeConfig: config }),
+        collapsed: false,
+        setCollapsed: (collapsed) => set({ collapsed })
+      };
+    },
+    {
+      name: "layout-storage", // name of the item in the storage (must be unique)
+      storage: createJSONStorage(() => localStorage) // (optional) by default, 'localStorage' is used
+    }
+  )
+);

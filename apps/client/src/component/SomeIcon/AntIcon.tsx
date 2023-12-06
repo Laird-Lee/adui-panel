@@ -11,7 +11,7 @@ const AntIcon = ({ name, type, twoToneColor }: TAntIcon) => {
   let IconComponent;
   if (name.split("-").length > 1) {
     IconComponent = createFromIconfontCN({
-      scriptUrl: "//at.alicdn.com/t/c/font_4360901_ecradjfpetv.js"
+      scriptUrl: "//at.alicdn.com/t/c/font_4360901_vklzkvw072j.js"
     });
   } else {
     IconComponent = antIcons[name as keyof typeof antIcons];

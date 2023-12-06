@@ -1,4 +1,4 @@
-import { Menu, Layout } from "antd";
+import { Menu, Layout, theme } from "antd";
 import { useLayoutStore } from "../../store";
 import AntIcon from "../SomeIcon/AntIcon.tsx";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -61,18 +61,24 @@ const LayoutSlider = () => {
     setSelectedKeys([key] as never[]);
     router(menuList.find((x) => x.key === key)!.path);
   };
+  const { mode } = useLayoutStore();
+  const { token } = theme.useToken();
   return (
     <Layout.Sider
       trigger={null}
       collapsible
       collapsed={collapsed}
-      style={{ backgroundColor: "#21373d" }}
+      style={{ backgroundColor: token.colorBgLayout }}
     >
       <div
         className={
           "h32px ma16px flex justify-center flex-items-center font-700 border-rd text-nowrap"
         }
-        style={{ color: "#21373d", fontSize: "20px", backgroundColor: "#d8e3e7" }}
+        style={{
+          color: token.colorBgLayout,
+          fontSize: "20px",
+          backgroundColor: mode === "light" ? "#fff" : "#333"
+        }}
       >
         {!collapsed ? "ADui Panel" : "ADui"}
       </div>
@@ -80,7 +86,7 @@ const LayoutSlider = () => {
         theme="dark"
         mode="inline"
         onClick={handleItem}
-        style={{ backgroundColor: "#21373d" }}
+        style={{ backgroundColor: token.colorBgLayout }}
         selectedKeys={selectedKeys}
         items={menuList.map((item) => item)}
       />

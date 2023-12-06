@@ -1,6 +1,8 @@
 import { Liquid, LiquidConfig } from "@ant-design/charts";
+import { theme } from "antd";
 
 export const LiquidChart = ({ percent, title }: { percent: number; title: string }) => {
+  const { token } = theme.useToken();
   const config: LiquidConfig = {
     percent: percent,
     autoFit: true,
@@ -15,7 +17,7 @@ export const LiquidChart = ({ percent, title }: { percent: number; title: string
     },
     outline: {
       style: {
-        stroke: "#10aec2"
+        stroke: token.colorPrimary
       }
     },
     wave: {
@@ -24,7 +26,7 @@ export const LiquidChart = ({ percent, title }: { percent: number; title: string
     pattern: {
       type: "line",
       cfg: {
-        backgroundColor: "#10aec2"
+        backgroundColor: token.colorPrimary
       }
     }
   };

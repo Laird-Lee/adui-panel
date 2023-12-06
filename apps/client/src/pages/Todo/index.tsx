@@ -9,8 +9,11 @@ const TuDo = () => {
       <Row gutter={15}>
         <Col span={8}>
           <Card
-            bordered={false}
-            title={"Todo List"}
+            title={
+              <>
+                <AntIcon name={"ProfileOutlined"} /> Todo List
+              </>
+            }
             extra={
               <Button type="primary" icon={<AntIcon name={"PlusSquareOutlined"} />}>
                 新增Todo
@@ -21,7 +24,13 @@ const TuDo = () => {
           </Card>
         </Col>
         <Col span={16}>
-          <Card bordered={false} title={"Todo Calendar "}>
+          <Card
+            title={
+              <>
+                <AntIcon name={"CalendarOutlined"} /> Todo Calendar
+              </>
+            }
+          >
             <TodoCalendar />
           </Card>
         </Col>

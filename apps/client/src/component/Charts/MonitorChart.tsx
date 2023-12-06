@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Area } from "@ant-design/charts";
+import { theme } from "antd";
 
 export const MonitorChart = () => {
   const [data, setData] = useState([]);
@@ -16,6 +17,7 @@ export const MonitorChart = () => {
         console.log("fetch data failed", error);
       });
   };
+  const { token } = theme.useToken();
   const config = {
     data,
     xField: "Date",
@@ -33,7 +35,7 @@ export const MonitorChart = () => {
     },
     areaStyle: () => {
       return {
-        fill: "l(270) 0:#ffffff 0.5:#7ec2f3 1:#1890ff"
+        fill: `l(270) 0:#ffffff 1:${token.colorPrimary}`
       };
     }
   };

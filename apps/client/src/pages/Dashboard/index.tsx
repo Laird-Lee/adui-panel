@@ -66,7 +66,6 @@ const Dashboard = () => {
                     <AntIcon name={"CloudServerOutlined"} /> 系统信息
                   </>
                 }
-                bordered={false}
               >
                 <List
                   itemLayout="vertical"
@@ -89,7 +88,6 @@ const Dashboard = () => {
                     <AntIcon name={"icon-todo"} /> 待办事项
                   </>
                 }
-                bordered={false}
               >
                 <List
                   itemLayout="vertical"
@@ -116,7 +114,6 @@ const Dashboard = () => {
                     <AntIcon name={"FundViewOutlined"} /> 概览
                   </>
                 }
-                bordered={false}
               >
                 <Row gutter={20}>
                   {status.map((item) => {
@@ -134,7 +131,6 @@ const Dashboard = () => {
                     <AntIcon name={"AreaChartOutlined"} /> 监控
                   </>
                 }
-                bordered={false}
               >
                 <MonitorChart></MonitorChart>
               </Card>
@@ -144,7 +140,6 @@ const Dashboard = () => {
                     <AntIcon name={"HeatMapOutlined"} /> GitHubCalendar
                   </>
                 }
-                bordered={false}
               >
                 <GitHubCalendar username={"Laird-Lee"} showWeekdayLabels={true}></GitHubCalendar>
               </Card>
