@@ -17,7 +17,7 @@ const LayoutSlider = () => {
     },
     {
       disabled: false,
-      icon: "DashboardOutlined",
+      icon: "icon-docker",
       key: "dockerInfo",
       label: "Docker",
       title: "Docker",

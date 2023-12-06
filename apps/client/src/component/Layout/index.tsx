@@ -12,7 +12,7 @@ const Layout = () => {
         <LayoutSlider></LayoutSlider>
         <AntLayout>
           <LayoutHeader />
-          <Content className={"pa15px"} style={{ backgroundColor: "#d8e3e7" }}>
+          <Content className={"pa15px"} style={{ backgroundColor: "#d8e3e7", overflow: "scroll" }}>
             <Outlet />
           </Content>
           <LayoutFooter />

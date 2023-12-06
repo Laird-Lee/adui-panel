@@ -1,6 +1,6 @@
-import { Card, Col, List, Row } from "antd";
+import { Card, Col, Flex, List, Row } from "antd";
 import AntIcon from "../../component/SomeIcon/AntIcon.tsx";
-import { useEffect, useRef, useState } from "react";
+import { LiquidChart } from "../../component/Charts";
 
 const Dashboard = () => {
   const data = [
@@ -52,60 +52,99 @@ const Dashboard = () => {
       content: 100
     }
   ];
-
-  const systemRef = useRef(null);
-  useEffect(() => {
-    if (systemRef.current) {
-      setSysOffsetHeight(`${systemRef.current!.offsetHeight}px`);
-    }
-  }, [systemRef]);
-  const [sysOffsetHeight, setSysOffsetHeight] = useState("100px");
   return (
     <>
       <div>
-        <Row gutter={[16, 16]}>
+        <Row gutter={[15, 15]}>
           <Col span={6}>
-            <Card
-              ref={systemRef}
-              title={
-                <>
-                  <AntIcon name={"CloudServerOutlined"} /> 系统信息
-                </>
-              }
-              bordered={false}
-            >
-              <List
-                itemLayout="vertical"
-                dataSource={data}
-                renderItem={(item) => (
-                  <List.Item>
-                    <Row gutter={10}>
-                      <Col span={8}>{item.label}</Col>
-                      <Col span={16} style={{ color: "#999" }}>
-                        {item.title}
-                      </Col>
-                    </Row>
-                  </List.Item>
-                )}
-              />
-            </Card>
+            <Flex vertical={true} gap={15}>
+              <Card
+                title={
+                  <>
+                    <AntIcon name={"CloudServerOutlined"} /> 系统信息
+                  </>
+                }
+                bordered={false}
+              >
+                <List
+                  itemLayout="vertical"
+                  dataSource={data}
+                  renderItem={(item) => (
+                    <List.Item>
+                      <Row gutter={10}>
+                        <Col span={8}>{item.label}</Col>
+                        <Col span={16} style={{ color: "#999" }}>
+                          {item.title}
+                        </Col>
+                      </Row>
+                    </List.Item>
+                  )}
+                />
+              </Card>
+              <Card
+                title={
+                  <>
+                    <AntIcon name={"CloudServerOutlined"} /> 系统信息
+                  </>
+                }
+                bordered={false}
+              >
+                <List
+                  itemLayout="vertical"
+                  dataSource={data}
+                  renderItem={(item) => (
+                    <List.Item>
+                      <Row gutter={10}>
+                        <Col span={8}>{item.label}</Col>
+                        <Col span={16} style={{ color: "#999" }}>
+                          {item.title}
+                        </Col>
+                      </Row>
+                    </List.Item>
+                  )}
+                />
+              </Card>
+            </Flex>
           </Col>
           <Col span={18}>
-            <Card
-              title={
-                <>
-                  <AntIcon name={"FundViewOutlined"} /> 概览
-                </>
-              }
-              style={{ height: sysOffsetHeight }}
-              bordered={false}
-            >
-              <div className={"flex justify-around w100%"}>
-                {status.map((item) => {
-                  return <div id={item.id} key={item.id} className={"h200px w100px"}></div>;
-                })}
-              </div>
-            </Card>
+            <Flex vertical={true} gap={15}>
+              <Card
+                title={
+                  <>
+                    <AntIcon name={"FundViewOutlined"} /> 概览
+                  </>
+                }
+                bordered={false}
+              >
+                <Row gutter={20}>
+                  {status.map((item) => {
+                    return (
+                      <Col span={6} key={item.id}>
+                        <LiquidChart percent={item.content / 100} title={item.label} />
+                      </Col>
+                    );
+                  })}
+                </Row>
+              </Card>
+              <Card
+                title={
+                  <>
+                    <AntIcon name={"FundViewOutlined"} /> 状态
+                  </>
+                }
+                bordered={false}
+              >
+                <Row gutter={30}>
+                  {status.map((item) => {
+                    return (
+                      <Col span={6} key={item.id}>
+                        <LiquidChart percent={item.content / 100} title={item.label} />
+                      </Col>
+                    );
+                  })}
+                </Row>
+              </Card>
+            </Flex>
           </Col>
         </Row>
       </div>
