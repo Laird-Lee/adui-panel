@@ -9,7 +9,7 @@ const LayoutSlider = () => {
   const menuList = [
     {
       disabled: false,
-      icon: "DashboardOutlined",
+      icon: <AntIcon name={"DashboardOutlined"} />,
       key: "dashboard",
       label: "Dashboard",
       title: "Dashboard",
@@ -17,12 +17,36 @@ const LayoutSlider = () => {
     },
     {
       disabled: false,
-      icon: "icon-docker",
+      icon: <AntIcon name={"icon-docker"} />,
       key: "dockerInfo",
       label: "Docker",
       title: "Docker",
       path: "/docker-info"
+    },
+    {
+      disabled: false,
+      icon: <AntIcon name={"icon-drive-drawing"} />,
+      key: "drawing",
+      label: "画板",
+      title: "画板",
+      path: "/drawing"
+    },
+    {
+      disabled: false,
+      icon: <AntIcon name={"icon-todo"} />,
+      key: "todo",
+      label: "待办事项",
+      title: "待办事项",
+      path: "/todo"
     }
+    // {
+    //   disabled: false,
+    //   icon: <AntIcon name={"icon-todo"} />,
+    //   key: "todo",
+    //   label: "文章",
+    //   title: "文章",
+    //   path: "/todo",
+    // }
   ];
 
   const [selectedKeys, setSelectedKeys] = useState([]);
@@ -58,14 +82,7 @@ const LayoutSlider = () => {
         onClick={handleItem}
         style={{ backgroundColor: "#21373d" }}
         selectedKeys={selectedKeys}
-        items={menuList.map((item) => ({
-          disabled: item.disabled,
-          icon: <AntIcon name={item.icon} />,
-          key: item.key,
-          label: item.label,
-          title: item.title,
-          path: item.path
-        }))}
+        items={menuList.map((item) => item)}
       />
     </Layout.Sider>
   );

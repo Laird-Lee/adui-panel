@@ -1,17 +1,17 @@
 import * as antIcons from "@ant-design/icons";
 import { createFromIconfontCN } from "@ant-design/icons";
 
-interface IAntIcon {
+type TAntIcon = {
   name: string;
   type?: string;
   twoToneColor?: string;
-}
+};
 
-const AntIcon = ({ name, type, twoToneColor }: IAntIcon) => {
+const AntIcon = ({ name, type, twoToneColor }: TAntIcon) => {
   let IconComponent;
   if (name.split("-").length > 1) {
     IconComponent = createFromIconfontCN({
-      scriptUrl: "//at.alicdn.com/t/c/font_4360901_rk2vid2h92s.js"
+      scriptUrl: "//at.alicdn.com/t/c/font_4360901_ecradjfpetv.js"
     });
   } else {
     IconComponent = antIcons[name as keyof typeof antIcons];

@@ -12,9 +12,13 @@
   "dependencies": {
     "@ant-design/charts": "^1.4.3",
     "@ant-design/icons": "^5.2.6",
+    "@excalidraw/excalidraw": "^0.17.2",
     "antd": "^5.12.1",
+    "dayjs": "^1.11.10",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-github-calendar": "^4.0.7",
+    "react-infinite-scroll-component": "^6.1.0",
     "react-router-dom": "^6.20.1",
     "zustand": "^4.4.7"
   },

@@ -3,6 +3,8 @@ import Login from "../pages/Login";
 import Layout from "../component/Layout";
 import Dashboard from "../pages/Dashboard";
 import DockerInfo from "../pages/DockerInfo";
+import Drawing from "../pages/Drawing";
+import TuDo from "../pages/Todo";
 
 const routers = createHashRouter([
   {
@@ -23,6 +25,14 @@ const routers = createHashRouter([
       {
         path: "/docker-info",
         element: <DockerInfo />
+      },
+      {
+        path: "/drawing",
+        element: <Drawing />
+      },
+      {
+        path: "/todo",
+        element: <TuDo />
       }
     ]
   }

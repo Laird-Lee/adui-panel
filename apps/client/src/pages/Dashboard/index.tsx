@@ -1,6 +1,8 @@
 import { Card, Col, Flex, List, Row } from "antd";
 import AntIcon from "../../component/SomeIcon/AntIcon.tsx";
 import { LiquidChart } from "../../component/Charts";
+import GitHubCalendar from "react-github-calendar";
+import { MonitorChart } from "../../component/Charts/MonitorChart.tsx";
 
 const Dashboard = () => {
   const data = [
@@ -84,7 +86,7 @@ const Dashboard = () => {
               <Card
                 title={
                   <>
-                    <AntIcon name={"CloudServerOutlined"} /> 系统信息
+                    <AntIcon name={"icon-todo"} /> 待办事项
                   </>
                 }
                 bordered={false}
@@ -129,20 +131,22 @@ const Dashboard = () => {
               <Card
                 title={
                   <>
-                    <AntIcon name={"FundViewOutlined"} /> 状态
+                    <AntIcon name={"AreaChartOutlined"} /> 监控
                   </>
                 }
                 bordered={false}
               >
-                <Row gutter={30}>
-                  {status.map((item) => {
-                    return (
-                      <Col span={6} key={item.id}>
-                        <LiquidChart percent={item.content / 100} title={item.label} />
-                      </Col>
-                    );
-                  })}
-                </Row>
+                <MonitorChart></MonitorChart>
+              </Card>
+              <Card
+                title={
+                  <>
+                    <AntIcon name={"HeatMapOutlined"} /> GitHubCalendar
+                  </>
+                }
+                bordered={false}
+              >
+                <GitHubCalendar username={"Laird-Lee"} showWeekdayLabels={true}></GitHubCalendar>
               </Card>
             </Flex>
           </Col>
