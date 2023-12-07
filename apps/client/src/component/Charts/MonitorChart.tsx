@@ -33,6 +33,9 @@ export const MonitorChart = () => {
         isArea: true
       }
     },
+    line: {
+      color: token.colorPrimary
+    },
     areaStyle: () => {
       return {
         fill: `l(270) 0:#ffffff 1:${token.colorPrimary}`

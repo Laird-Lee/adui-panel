@@ -3,10 +3,11 @@ import {
   Badge,
   Button,
   ColorPicker,
-  Dropdown,
   Flex,
   Layout,
   Popover,
+  Radio,
+  RadioChangeEvent,
   Space,
   theme
 } from "antd";
@@ -23,16 +24,18 @@ const LayoutHeader = () => {
     tokenConfig,
     setTokenConfig,
     algorithmConfig,
-    setAlgorithmConfig
+    setAlgorithmConfig,
+    local,
+    setLocal
   } = useLayoutStore();
   const { token } = theme.useToken();
   const localItems = [
     {
-      key: "zh-cn",
+      value: "zh-cn",
       label: "中文"
     },
     {
-      key: "en",
+      value: "en",
       label: "English"
     }
   ];
@@ -46,6 +49,9 @@ const LayoutHeader = () => {
       setAlgorithmConfig(theme.darkAlgorithm);
       setTokenConfig({ colorPrimary: tokenConfig.colorPrimary });
     }
+  };
+  const handleChangeLocal = (e: RadioChangeEvent) => {
+    setLocal(e.target.value);
   };
   return (
     <Layout.Header className={"pa0"} style={{ backgroundColor: token.colorBgLayout }}>
@@ -71,15 +77,6 @@ const LayoutHeader = () => {
           <Badge dot>
             <Button type="primary" shape="circle" icon={<AntIcon name={"BellOutlined"} />} />
           </Badge>
-          <Dropdown menu={{ items: localItems }} placement="bottom" arrow>
-            <Button type="primary" shape="circle" icon={<AntIcon name={"TranslationOutlined"} />} />
-          </Dropdown>
-          <Button type="primary" shape="circle" icon={<AntIcon name={"FullscreenOutlined"} />} />
-          <Button
-            type="primary"
-            shape="circle"
-            icon={<AntIcon name={"FullscreenExitOutlined"} />}
-          />
           {mode === "light" && (
             <Button
               type="primary"
@@ -99,25 +96,76 @@ const LayoutHeader = () => {
           <Popover
             trigger="click"
             placement="bottom"
-            title={"使用自定义主题色"}
+            title={"更换主题色"}
             content={
-              <ColorPicker
-                disabledAlpha
-                value={token.colorPrimary}
-                onChangeComplete={(color) => {
-                  if (!algorithmConfig) {
-                    const { shade } = calculateBackgroundColor(color.toHexString());
-                    setTokenConfig({ colorPrimary: color.toHexString(), colorBgLayout: shade });
-                  } else {
-                    setTokenConfig({ colorPrimary: color.toHexString() });
-                  }
-                }}
-              />
+              <>
+                <Space size={15} direction={"vertical"} className={"w100%"}>
+                  <Flex justify={"space-between"}>
+                    <div>自定义</div>
+                    <ColorPicker
+                      disabledAlpha
+                      value={token.colorPrimary}
+                      onChangeComplete={(color) => {
+                        if (!algorithmConfig) {
+                          const { shade } = calculateBackgroundColor(color.toHexString());
+                          setTokenConfig({
+                            colorPrimary: color.toHexString(),
+                            colorBgLayout: shade
+                          });
+                        } else {
+                          setTokenConfig({ colorPrimary: color.toHexString() });
+                        }
+                      }}
+                    />
+                  </Flex>
+                  <Flex justify={"end"}>
+                    <Button
+                      onClick={() => {
+                        const themeColor = "#10aec2";
+                        if (mode === "light") {
+                          const { shade } = calculateBackgroundColor(themeColor);
+                          setTokenConfig({ colorPrimary: themeColor, colorBgLayout: shade });
+                        } else {
+                          setTokenConfig({ colorPrimary: themeColor });
+                        }
+                      }}
+                    >
+                      恢复默认
+                    </Button>
+                  </Flex>
+                </Space>
+              </>
             }
             arrow
           >
             <Button type="primary" shape="circle" icon={<AntIcon name={"SkinOutlined"} />} />
           </Popover>
+          <Popover
+            trigger="click"
+            placement="bottom"
+            content={
+              <Radio.Group onChange={handleChangeLocal} value={local}>
+                <Space direction={"vertical"}>
+                  {localItems.map((item) => {
+                    return (
+                      <Radio key={item.value} value={item.value}>
+                        {item.label}
+                      </Radio>
+                    );
+                  })}
+                </Space>
+              </Radio.Group>
+            }
+            arrow
+          >
+            <Button type="primary" shape="circle" icon={<AntIcon name={"TranslationOutlined"} />} />
+          </Popover>
+          <Button
+            type="primary"
+            shape="circle"
+            icon={<AntIcon name={"GithubOutlined"} />}
+            onClick={() => window.open("https://github.com/Laird-Lee/adui-panel")}
+          />
           <Avatar size={"large"} shape="square" icon={<AntIcon name={"UserOutlined"} />} />
         </Space>
       </Flex>

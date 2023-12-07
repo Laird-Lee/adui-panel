@@ -14,6 +14,8 @@ export interface ILayoutState {
   setAlgorithmConfig: (config: MappingAlgorithm | MappingAlgorithm[] | undefined) => void;
   collapsed: boolean;
   setCollapsed: (collapsed: boolean) => void;
+  local: "zh-cn" | "en";
+  setLocal: (local: "zh-cn" | "en") => void;
 }
 
 export const useLayoutStore = create(
@@ -32,7 +34,9 @@ export const useLayoutStore = create(
         algorithmConfig: undefined,
         setAlgorithmConfig: (config) => set({ algorithmConfig: config }),
         collapsed: false,
-        setCollapsed: (collapsed) => set({ collapsed })
+        setCollapsed: (collapsed) => set({ collapsed }),
+        local: "zh-cn",
+        setLocal: (local) => set({ local })
       };
     },
     {
