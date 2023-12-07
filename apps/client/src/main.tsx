@@ -4,7 +4,7 @@ import routers from "./router";
 import "./style/normalize.css";
 import "./style/index.css";
 import "virtual:uno.css";
-import { ConfigProvider, theme } from "antd";
+import { ConfigProvider } from "antd";
 import zhCN from "antd/locale/zh_CN";
 
 import dayjs from "dayjs";
@@ -16,31 +16,24 @@ import { Spin } from "antd";
 import Loading from "./assets/loading.svg";
 import { useLayoutStore } from "./store";
 import type { PropsWithChildren } from "react";
-import { useEffect } from "react";
 
 Spin.setDefaultIndicator(<img src={Loading} />);
 
+// eslint-disable-next-line react-refresh/only-export-components
 const ThemConfigProvider = (props: PropsWithChildren) => {
-  const { themeConfig, mode, setTheme } = useLayoutStore();
-  useEffect(() => {
-    if (mode === "dark") {
-      setTheme({ algorithm: theme.darkAlgorithm });
-    }
-  }, []);
+  const { tokenConfig, algorithmConfig } = useLayoutStore();
   return (
     <ConfigProvider
       locale={zhCN}
       theme={{
-        token: {
-          colorPrimary: "#10aec2"
-        },
         components: {
           Spin: {
             dotSizeLG: 100
           }
         },
         cssVar: true,
-        ...themeConfig
+        token: tokenConfig,
+        algorithm: algorithmConfig
       }}
       componentSize={"small"}
     >

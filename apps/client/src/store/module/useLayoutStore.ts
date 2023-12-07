@@ -1,16 +1,17 @@
 import { create } from "zustand";
 import type { SetState } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
-import type { ThemeConfig } from "antd";
+import type { MappingAlgorithm } from "antd";
 import { calculateBackgroundColor } from "../../utils";
+import { AliasToken } from "antd/es/theme/interface";
 
 export interface ILayoutState {
   mode: "light" | "dark";
   setMode: (mode: "light" | "dark") => void;
-  themeConfig: ThemeConfig;
-  originThemeConfig: ThemeConfig;
-  setTheme: (config: ThemeConfig) => void;
-  setOriginTheme: (config: ThemeConfig) => void;
+  tokenConfig: Partial<AliasToken>;
+  setTokenConfig: (config: Partial<AliasToken>) => void;
+  algorithmConfig: MappingAlgorithm | MappingAlgorithm[] | undefined;
+  setAlgorithmConfig: (config: MappingAlgorithm | MappingAlgorithm[] | undefined) => void;
   collapsed: boolean;
   setCollapsed: (collapsed: boolean) => void;
 }
@@ -23,20 +24,13 @@ export const useLayoutStore = create(
       return {
         mode: "light",
         setMode: (mode) => set({ mode }),
-        themeConfig: {
-          token: {
-            colorPrimary: themeColor,
-            colorBgLayout: shade
-          }
+        tokenConfig: {
+          colorPrimary: themeColor,
+          colorBgLayout: shade
         },
-        setTheme: (config) => set({ themeConfig: config }),
-        originThemeConfig: {
-          token: {
-            colorPrimary: themeColor,
-            colorBgLayout: shade
-          }
-        },
-        setOriginTheme: (config) => set({ themeConfig: config }),
+        setTokenConfig: (config) => set({ tokenConfig: config }),
+        algorithmConfig: undefined,
+        setAlgorithmConfig: (config) => set({ algorithmConfig: config }),
         collapsed: false,
         setCollapsed: (collapsed) => set({ collapsed })
       };

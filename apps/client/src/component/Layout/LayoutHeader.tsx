@@ -15,8 +15,16 @@ import AntIcon from "../SomeIcon/AntIcon.tsx";
 import { calculateBackgroundColor } from "../../utils";
 
 const LayoutHeader = () => {
-  const { collapsed, setCollapsed, mode, setMode, setTheme, originThemeConfig, setOriginTheme } =
-    useLayoutStore();
+  const {
+    collapsed,
+    setCollapsed,
+    mode,
+    setMode,
+    tokenConfig,
+    setTokenConfig,
+    algorithmConfig,
+    setAlgorithmConfig
+  } = useLayoutStore();
   const { token } = theme.useToken();
   const localItems = [
     {
@@ -31,9 +39,12 @@ const LayoutHeader = () => {
   const handleLightOrDark = (mode: "light" | "dark") => {
     setMode(mode);
     if (mode === "light") {
-      setTheme({ ...originThemeConfig, algorithm: undefined });
+      setAlgorithmConfig(undefined);
+      const { shade } = calculateBackgroundColor(tokenConfig.colorPrimary!);
+      setTokenConfig({ colorPrimary: tokenConfig.colorPrimary, colorBgLayout: shade });
     } else {
-      setTheme({ algorithm: theme.darkAlgorithm });
+      setAlgorithmConfig(theme.darkAlgorithm);
+      setTokenConfig({ colorPrimary: tokenConfig.colorPrimary });
     }
   };
   return (
@@ -94,24 +105,18 @@ const LayoutHeader = () => {
                 disabledAlpha
                 value={token.colorPrimary}
                 onChangeComplete={(color) => {
-                  const { shade } = calculateBackgroundColor(color.toHexString());
-                  setTheme({
-                    token: { ...token, colorPrimary: color.toHexString(), colorBgLayout: shade }
-                  });
-                  setOriginTheme({
-                    token: { ...token, colorPrimary: color.toHexString(), colorBgLayout: shade }
-                  });
+                  if (!algorithmConfig) {
+                    const { shade } = calculateBackgroundColor(color.toHexString());
+                    setTokenConfig({ colorPrimary: color.toHexString(), colorBgLayout: shade });
+                  } else {
+                    setTokenConfig({ colorPrimary: color.toHexString() });
+                  }
                 }}
               />
             }
             arrow
           >
-            <Button
-              type="primary"
-              shape="circle"
-              icon={<AntIcon name={"SkinOutlined"} />}
-              disabled={mode === "dark"}
-            />
+            <Button type="primary" shape="circle" icon={<AntIcon name={"SkinOutlined"} />} />
           </Popover>
           <Avatar size={"large"} shape="square" icon={<AntIcon name={"UserOutlined"} />} />
         </Space>
