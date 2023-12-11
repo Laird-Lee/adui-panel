@@ -2,8 +2,11 @@ import { Button, Card, Col, Row } from "antd";
 import TodoCalendar from "./TodoCalendar.tsx";
 import TodoList from "./TodoList.tsx";
 import AntIcon from "../../component/SomeIcon/AntIcon.tsx";
+import TodoModal from "./TodoModal.tsx";
+import { useState } from "react";
 
 const TuDo = () => {
+  const [visible, setVisible] = useState(false);
   return (
     <div className={"w100%"}>
       <Row gutter={15}>
@@ -15,7 +18,11 @@ const TuDo = () => {
               </>
             }
             extra={
-              <Button type="primary" icon={<AntIcon name={"PlusSquareOutlined"} />}>
+              <Button
+                type="primary"
+                icon={<AntIcon name={"PlusSquareOutlined"} />}
+                onClick={() => setVisible(true)}
+              >
                 新增Todo
               </Button>
             }
@@ -35,6 +42,7 @@ const TuDo = () => {
           </Card>
         </Col>
       </Row>
+      <TodoModal visible={visible} title={"新增Todo"} onClose={(flag) => setVisible(flag)} />
     </div>
   );
 };

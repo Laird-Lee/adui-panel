@@ -12,12 +12,12 @@ import dayjs from "dayjs";
 import "dayjs/locale/zh-cn";
 
 import { Spin } from "antd";
-import Loading from "./assets/loading.svg";
+import Loading from "./component/SomeIcon/Loading.tsx";
 import { useLayoutStore } from "./store";
 import type { PropsWithChildren } from "react";
 import { useEffect } from "react";
 
-Spin.setDefaultIndicator(<img src={Loading} />);
+Spin.setDefaultIndicator(<Loading />);
 
 // eslint-disable-next-line react-refresh/only-export-components
 const ThemConfigProvider = (props: PropsWithChildren) => {

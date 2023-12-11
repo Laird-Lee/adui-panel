@@ -1,6 +1,7 @@
 import type { Dayjs } from "dayjs";
 import type { BadgeProps, CalendarProps } from "antd";
 import { Badge, Calendar } from "antd";
+import EllipsisTextTooltip from "../../component/EllipsisTextTooltip";
 
 const getListData = (value: Dayjs) => {
   let listData;
@@ -54,9 +55,13 @@ const TodoCalendar = () => {
     return (
       <ul className={"text-left text-nowrap"}>
         {listData.map((item) => (
-          <li key={item.content}>
-            <Badge status={item.type as BadgeProps["status"]} text={item.content} />
-          </li>
+          <EllipsisTextTooltip
+            text={
+              <li key={item.content}>
+                <Badge status={item.type as BadgeProps["status"]} text={item.content} />
+              </li>
+            }
+          />
         ))}
       </ul>
     );

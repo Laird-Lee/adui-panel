@@ -7,10 +7,10 @@ import {
   Layout,
   Popover,
   Radio,
-  RadioChangeEvent,
   Space,
   theme
 } from "antd";
+import type { RadioChangeEvent } from "antd";
 import { useLayoutStore } from "../../store";
 import AntIcon from "../SomeIcon/AntIcon.tsx";
 import { calculateBackgroundColor } from "../../utils";
