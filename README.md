@@ -1,34 +1,26 @@
-# `Turborepo` Vite starter
+# adui-panel
 
-This is an official starter Turborepo.
+> 一个属于自己的集天下之大成的面板
 
-## Using this example
+## Clone
 
-Run the following command:
-
-```sh
-npx create-turbo@latest -e with-vite
+```shell
+git clone git@github.com:Laird-Lee/adui-panel.git
 ```
 
-## What's inside?
+## Install
 
-This Turborepo includes the following packages and apps:
+```shell
+cd adui-panel
+pnpm install
+```
 
-### Apps and Packages
+## Start
 
-- `docs`: a vanilla [vite](https://vitejs.dev) ts app
-- `web`: another vanilla [vite](https://vitejs.dev) ts app
-- `ui`: a stub component & utility library shared by both `web` and `docs` applications
-- `eslint-config-custom`: shared `eslint` configurations
-- `tsconfig`: `tsconfig.json`s used throughout the monorepo
+```shell
+turbo dev
+```
 
-Each package and app is 100% [TypeScript](https://www.typescriptlang.org/).
+## 功能
 
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Jest](https://jestjs.io) test runner for all things JavaScript
-- [Prettier](https://prettier.io) for code formatting
+-[ ] 系统信息 -[x] 暗黑模式 -[x] 自定义主题 -[x] 国际化
