@@ -46,6 +46,22 @@ const LayoutSlider = () => {
       label: "个人中心",
       title: "个人中心",
       path: "/profile"
+    },
+    {
+      disabled: false,
+      icon: <AntIcon name={"BookOutlined"} />,
+      key: "dict-manage",
+      label: "字典表管理",
+      title: "字典表管理",
+      path: "/dict-manage"
+    },
+    {
+      disabled: false,
+      icon: <AntIcon name={"MenuOutlined"} />,
+      key: "menu-manage",
+      label: "菜单管理",
+      title: "菜单管理",
+      path: "/menu-manage"
     }
     // {
     //   disabled: false,

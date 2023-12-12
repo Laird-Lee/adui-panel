@@ -6,6 +6,8 @@ import DockerInfo from "../pages/DockerInfo";
 import Drawing from "../pages/Drawing";
 import TuDo from "../pages/Todo";
 import Profile from "../pages/Profile";
+import DictManage from "../pages/DictManage";
+import MenuManage from "../pages/MenuManage";
 
 const routers = createHashRouter([
   {
@@ -38,6 +40,14 @@ const routers = createHashRouter([
       {
         path: "/profile",
         element: <Profile />
+      },
+      {
+        path: "/dict-manage",
+        element: <DictManage />
+      },
+      {
+        path: "/menu-manage",
+        element: <MenuManage />
       }
     ]
   }
