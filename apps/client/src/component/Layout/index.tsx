@@ -1,13 +1,19 @@
 import { Outlet } from "react-router-dom";
-import { Layout as AntLayout } from "antd";
+import { Layout as AntLayout, theme } from "antd";
 import LayoutSlider from "./LayoutSlider.tsx";
 import { Content } from "antd/es/layout/layout";
 import LayoutHeader from "./LayoutHeader.tsx";
 import LayoutFooter from "./LayoutFooter.tsx";
 import { useLayoutStore } from "../../store";
+import { useEffect } from "react";
 
 const Layout = () => {
-  const { mode } = useLayoutStore();
+  const { mode, setAlgorithmConfig } = useLayoutStore();
+  useEffect(() => {
+    if (mode === "dark") {
+      setAlgorithmConfig(theme.darkAlgorithm);
+    }
+  }, []);
   return (
     <>
       <AntLayout className={"h-screen"}>
