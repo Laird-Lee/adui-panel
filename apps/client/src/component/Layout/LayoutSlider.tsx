@@ -33,11 +33,19 @@ const LayoutSlider = () => {
     },
     {
       disabled: false,
-      icon: <AntIcon name={"icon-todo"} />,
+      icon: <AntIcon name={"ProfileOutlined"} />,
       key: "todo",
       label: "待办事项",
       title: "待办事项",
       path: "/todo"
+    },
+    {
+      disabled: false,
+      icon: <AntIcon name={"UserOutlined"} />,
+      key: "profile",
+      label: "个人中心",
+      title: "个人中心",
+      path: "/profile"
     }
     // {
     //   disabled: false,

@@ -56,8 +56,9 @@ const TodoCalendar = () => {
       <ul className={"text-left text-nowrap"}>
         {listData.map((item) => (
           <EllipsisTextTooltip
+            key={item.content}
             text={
-              <li key={item.content}>
+              <li>
                 <Badge status={item.type as BadgeProps["status"]} text={item.content} />
               </li>
             }

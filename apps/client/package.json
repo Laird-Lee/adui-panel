@@ -14,6 +14,7 @@
     "@ant-design/icons": "^5.2.6",
     "@excalidraw/excalidraw": "^0.17.2",
     "antd": "^5.12.1",
+    "antd-img-crop": "^4.18.0",
     "dayjs": "^1.11.10",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

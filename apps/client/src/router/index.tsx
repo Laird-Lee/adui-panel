@@ -5,6 +5,7 @@ import Dashboard from "../pages/Dashboard";
 import DockerInfo from "../pages/DockerInfo";
 import Drawing from "../pages/Drawing";
 import TuDo from "../pages/Todo";
+import Profile from "../pages/Profile";
 
 const routers = createHashRouter([
   {
@@ -33,6 +34,10 @@ const routers = createHashRouter([
       {
         path: "/todo",
         element: <TuDo />
+      },
+      {
+        path: "/profile",
+        element: <Profile />
       }
     ]
   }
