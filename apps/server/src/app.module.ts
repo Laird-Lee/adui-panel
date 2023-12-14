@@ -3,6 +3,10 @@ import { ConfigModule } from '@nestjs/config';
 import databaseConfig from './config/database.config';
 import authConfig from './config/auth.config';
 import appConfig from './config/app.config';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { TypeOrmConfigService } from './database/typeorm-config.service';
+import { DataSource, DataSourceOptions } from 'typeorm';
+import { DictModule } from './dict/dict.module';
 
 @Module({
   imports: [
@@ -11,6 +15,13 @@ import appConfig from './config/app.config';
       load: [databaseConfig, authConfig, appConfig],
       envFilePath: ['../../.env'],
     }),
+    TypeOrmModule.forRootAsync({
+      useClass: TypeOrmConfigService,
+      dataSourceFactory: async (options: DataSourceOptions) => {
+        return new DataSource(options).initialize();
+      },
+    }),
+    DictModule,
   ],
   controllers: [],
   providers: [],

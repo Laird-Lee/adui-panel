@@ -2,6 +2,7 @@ import {
   AfterLoad,
   BaseEntity,
   CreateDateColumn,
+  DeleteDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { instanceToPlain } from 'class-transformer';
@@ -24,6 +25,11 @@ export class EntityHelper extends BaseEntity {
     transformer: dateTransformer,
   })
   updateTime: Date;
+
+  @DeleteDateColumn({
+    transformer: dateTransformer,
+  })
+  delTime: Date;
 
   @AfterLoad()
   setEntityName() {

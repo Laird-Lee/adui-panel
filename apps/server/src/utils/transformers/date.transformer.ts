@@ -2,18 +2,18 @@ import type { ValueTransformer } from 'typeorm';
 import moment from 'moment';
 
 /**
- * Represents the format string for date and time.
+ * Represents a string format for date and time.
  * @type {string}
  */
 const FORMAT: string = 'YYYY-MM-DD HH:mm:ss';
 
 /**
  * Formats the input value into a Date object.
- * @param {string | number | Date} value - The input value to format.
- * @return {Date} The formatted Date object.
+ * @param {Date} value - The input value to format.
+ * @return {Date} - The formatted Date object.
  */
-function createFormattedDate(value: string | number | Date): Date {
-  return moment(value).toDate();
+function createFormattedDate(value: Date): Date {
+  return value;
 }
 
 /**
@@ -26,9 +26,9 @@ function formatValueToDateTime(value: string | number | Date): string {
 }
 
 /**
- * Value transformer for date conversion.
- * @property {function} to - Transform the date value to a date object.
- * @property {function} from - Transform the date object to a formatted date string.
+ * A value transformer for date conversion.
+ * @property {Function} to - The function used to convert a value to a formatted date string.
+ * @property {Function} from - The function used to convert a formatted date string to a value.
  */
 export const dateTransformer: ValueTransformer = {
   to: createFormattedDate,

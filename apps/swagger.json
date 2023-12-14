@@ -1,0 +1,227 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/api/dict": {
+      "post": {
+        "operationId": "DictController_create",
+        "summary": "创建字典表",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateDictDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "字典表"
+        ]
+      },
+      "get": {
+        "operationId": "DictController_findAll",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "字典表"
+        ]
+      }
+    },
+    "/api/dict/{id}": {
+      "get": {
+        "operationId": "DictController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "字典表"
+        ]
+      },
+      "patch": {
+        "operationId": "DictController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateDictDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "字典表"
+        ]
+      },
+      "delete": {
+        "operationId": "DictController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "字典表"
+        ]
+      }
+    },
+    "/api/dict/item": {
+      "post": {
+        "operationId": "DictController_saveDictItems",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DictItemsDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "字典表"
+        ]
+      }
+    },
+    "/api/dict/item/{dictId}": {
+      "get": {
+        "operationId": "DictController_findDictItemsByDictId",
+        "parameters": [
+          {
+            "name": "dictId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "字典表"
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "ADui Panel API",
+    "description": "API docs",
+    "version": "1.0",
+    "contact": {}
+  },
+  "tags": [],
+  "servers": [],
+  "components": {
+    "schemas": {
+      "CreateDictDto": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "example": "sys_type"
+          },
+          "name": {
+            "type": "string",
+            "example": "系统类型"
+          },
+          "description": {
+            "type": "string",
+            "example": "系统类型描述"
+          }
+        },
+        "required": [
+          "code",
+          "name",
+          "description"
+        ]
+      },
+      "UpdateDictDto": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "example": "sys_type"
+          },
+          "name": {
+            "type": "string",
+            "example": "系统类型"
+          },
+          "description": {
+            "type": "string",
+            "example": "系统类型描述"
+          }
+        }
+      },
+      "DictItemsDto": {
+        "type": "object",
+        "properties": {
+          "dictId": {
+            "type": "number",
+            "example": 12
+          }
+        },
+        "required": [
+          "dictId"
+        ]
+      }
+    }
+  }
+}

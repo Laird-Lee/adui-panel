@@ -10,12 +10,14 @@ import {
 } from '@nestjs/common';
 import validationOptions from './utils/validation-options';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import path from 'path';
+import fs from 'fs';
 
 /**
  * Bootstraps the application.
  * @returns {Promise<void>} A promise that resolves when the application is successfully bootstrapped.
  */
-async function bootstrap() {
+async function bootstrap(): Promise<void> {
   const app: INestApplication = await NestFactory.create(AppModule, {
     cors: true,
   });
@@ -39,7 +41,7 @@ async function bootstrap() {
 function setupPrefixAndVersioning(
   app: INestApplication,
   configService: ConfigService<AllConfigType>,
-) {
+): void {
   app.setGlobalPrefix(
     configService.getOrThrow('app.apiPrefix', { infer: true }),
   );
@@ -51,7 +53,7 @@ function setupPrefixAndVersioning(
  * @param {INestApplication} app - The Nest application object.
  * @return {void}
  */
-function setupGlobalPipesAndInterceptors(app: INestApplication) {
+function setupGlobalPipesAndInterceptors(app: INestApplication): void {
   app.useGlobalPipes(new ValidationPipe(validationOptions));
   app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
 }
@@ -61,7 +63,7 @@ function setupGlobalPipesAndInterceptors(app: INestApplication) {
  * @param {INestApplication} app - The NestJS application instance.
  * @returns {void}
  */
-function setupSwagger(app: INestApplication) {
+function setupSwagger(app: INestApplication): void {
   const options = new DocumentBuilder()
     .setTitle('ADui Panel API')
     .setDescription('API docs')
@@ -69,6 +71,10 @@ function setupSwagger(app: INestApplication) {
     .build();
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('docs', app, document);
+
+  const outputFilePath = path.join(__dirname, '../../swagger.json');
+  fs.writeFileSync(outputFilePath, JSON.stringify(document, null, 2));
+  console.log(`Swagger JSON document saved to ${outputFilePath}`);
 }
 
 void bootstrap();
