@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Dict } from './entities/dict.entity';
 import { Repository } from 'typeorm';
@@ -20,7 +20,10 @@ export class DictService {
   async create(createDictDto: CreateDictDto): Promise<Dict> {
     const existingDict = await this.findByCode(createDictDto.code);
     if (existingDict) {
-      throw new Error('Dict with the same code already exists');
+      throw new HttpException(
+        '字典表已存在！',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
     }
     const dict = this.dictRepository.create(createDictDto);
     return await this.saveDictionary(dict);
@@ -35,7 +38,14 @@ export class DictService {
   }
 
   async findOne(id: number): Promise<Dict> {
-    return await this.dictRepository.findOneBy({ id });
+    const dict = await this.dictRepository.findOneBy({ id });
+    if (!dict) {
+      throw new HttpException(
+        '字典表未找到！',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+    return dict;
   }
 
   async findAll(): Promise<Dict[]> {

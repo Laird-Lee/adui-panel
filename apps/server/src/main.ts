@@ -12,6 +12,8 @@ import validationOptions from './utils/validation-options';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import path from 'path';
 import fs from 'fs';
+import { HttpExceptionFilter } from './filters/http-exception.filter';
+import { TransformInterceptor } from './interceptors/transform.interceptor';
 
 /**
  * Bootstraps the application.
@@ -78,6 +80,8 @@ function setupPrefixAndVersioning(
 function setupGlobalPipesAndInterceptors(app: INestApplication): void {
   app.useGlobalPipes(new ValidationPipe(validationOptions));
   app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
+  app.useGlobalInterceptors(new TransformInterceptor());
+  app.useGlobalFilters(new HttpExceptionFilter());
 }
 
 /**
