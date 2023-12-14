@@ -1,9 +1,18 @@
-import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
+import {
+  ArrayNotEmpty,
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+  IsString,
+  ValidateNested,
+} from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import { Type } from 'class-transformer';
 
 export class DictItemDto {
   @ApiProperty({ example: 1 })
   @IsNumber()
+  @IsOptional()
   id: number;
 
   @ApiProperty({ example: '1' })
@@ -33,6 +42,9 @@ export class DictItemsDto {
   @IsNotEmpty()
   dictId: number;
 
-  @IsNotEmpty()
+  @ApiProperty({ type: [DictItemDto] })
+  @ArrayNotEmpty()
+  @ValidateNested({ each: true })
+  @Type(() => DictItemDto)
   dictItems: DictItemDto[];
 }

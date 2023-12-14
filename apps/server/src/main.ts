@@ -30,6 +30,28 @@ async function bootstrap(): Promise<void> {
   setupSwagger(app);
 
   await app.listen(configService.getOrThrow('app.port', { infer: true }));
+  console.info(`
+           _____        _   _____                 _ 
+     /\\   |  __ \\      (_) |  __ \\               | |
+    /  \\  | |  | |_   _ _  | |__) __ _ _ __   ___| |
+   / /\\ \\ | |  | | | | | | |  ___/ _\` | '_ \\ / _ | |
+  / ____ \\| |__| | |_| | | | |  | (_| | | | |  __| |
+ /_/    \\_|_____/ \\__,_|_| |_|   \\__,_|_| |_|\\___|_|                 
+  `);
+
+  console.log(`
+      Api running at:     http://localhost:${configService.getOrThrow(
+        'app.port',
+        {
+          infer: true,
+        },
+      )}/${configService.getOrThrow('app.apiPrefix', { infer: true })}
+
+      Swagger running at: http://localhost:${configService.getOrThrow(
+        'app.port',
+        { infer: true },
+      )}/docs
+  `);
 }
 
 /**
@@ -74,7 +96,6 @@ function setupSwagger(app: INestApplication): void {
 
   const outputFilePath = path.join(__dirname, '../../swagger.json');
   fs.writeFileSync(outputFilePath, JSON.stringify(document, null, 2));
-  console.log(`Swagger JSON document saved to ${outputFilePath}`);
 }
 
 void bootstrap();

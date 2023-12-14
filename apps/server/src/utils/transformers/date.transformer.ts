@@ -22,7 +22,7 @@ function createFormattedDate(value: Date): Date {
  * @return {string} - The formatted date and time string.
  */
 function formatValueToDateTime(value: string | number | Date): string {
-  return moment(value).format(FORMAT);
+  return value ? moment(value).format(FORMAT) : undefined;
 }
 
 /**

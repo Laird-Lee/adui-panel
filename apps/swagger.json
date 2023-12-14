@@ -210,16 +210,55 @@
           }
         }
       },
+      "DictItemDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "example": 1
+          },
+          "value": {
+            "type": "string",
+            "example": "1"
+          },
+          "text": {
+            "type": "string",
+            "example": "系统类型"
+          },
+          "textEn": {
+            "type": "string",
+            "example": "System Type"
+          },
+          "seq": {
+            "type": "number",
+            "example": 0
+          }
+        },
+        "required": [
+          "id",
+          "value",
+          "text",
+          "textEn",
+          "seq"
+        ]
+      },
       "DictItemsDto": {
         "type": "object",
         "properties": {
           "dictId": {
             "type": "number",
             "example": 12
+          },
+          "dictItems": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DictItemDto"
+            }
           }
         },
         "required": [
-          "dictId"
+          "dictId",
+          "dictItems"
         ]
       }
     }
