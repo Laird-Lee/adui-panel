@@ -3,32 +3,46 @@ import AntIcon from "../../component/SomeIcon/AntIcon.tsx";
 import { LiquidChart } from "../../component/Charts";
 import GitHubCalendar from "react-github-calendar";
 import { MonitorChart } from "../../component/Charts/MonitorChart.tsx";
+import { useSystemInfo } from "../../api/system.ts";
+import { useEffect, useState } from "react";
+
+interface ISysInfo {
+  key: string;
+  label: string;
+  value: string | number;
+}
 
 const Dashboard = () => {
   const data = [
     {
+      key: "hostname",
       label: "主机名称",
-      title: "Ant Design Title 1"
+      value: "Ant Design Title 1"
     },
     {
+      key: "release",
       label: "发行版本",
-      title: "Ant Design Title 1"
+      value: "Ant Design Title 1"
     },
     {
+      key: "arch",
       label: "内核版本",
-      title: "Ant Design Title 1"
+      value: "Ant Design Title 1"
     },
     {
+      key: "type",
       label: "系统类型",
-      title: "Ant Design Title 1"
+      value: "Ant Design Title 1"
     },
     {
+      key: "uptime",
       label: "启动时间",
-      title: "Ant Design Title 1"
+      value: "Ant Design Title 1"
     },
     {
+      key: "runtime",
       label: "运行时间",
-      title: "Ant Design Title 1"
+      value: "Ant Design Title 1"
     }
   ];
 
@@ -54,6 +68,25 @@ const Dashboard = () => {
       content: 100
     }
   ];
+  const [sysInfo, setSysInfo] = useState<ISysInfo[]>([]);
+  const { loading, response, error } = useSystemInfo();
+  console.log(loading, response, error);
+  useEffect(() => {
+    if (response) {
+      console.log(response?.data);
+      const list = data.map((x) => {
+        if (response?.data[x.key]) {
+          return {
+            ...x,
+            value: response?.data[x.key]
+          };
+        } else {
+          return x;
+        }
+      });
+      setSysInfo(list);
+    }
+  }, [response]);
   return (
     <>
       <div>
@@ -61,6 +94,7 @@ const Dashboard = () => {
           <Col span={6}>
             <Flex vertical={true} gap={15}>
               <Card
+                loading={loading}
                 title={
                   <>
                     <AntIcon name={"CloudServerOutlined"} /> 系统信息
@@ -69,13 +103,13 @@ const Dashboard = () => {
               >
                 <List
                   itemLayout="vertical"
-                  dataSource={data}
+                  dataSource={sysInfo}
                   renderItem={(item) => (
-                    <List.Item>
+                    <List.Item key={item.key}>
                       <Row gutter={10}>
                         <Col span={8}>{item.label}</Col>
                         <Col span={16} style={{ color: "#999" }}>
-                          {item.title}
+                          {item.value}
                         </Col>
                       </Row>
                     </List.Item>
@@ -93,11 +127,11 @@ const Dashboard = () => {
                   itemLayout="vertical"
                   dataSource={data}
                   renderItem={(item) => (
-                    <List.Item>
+                    <List.Item key={item.key}>
                       <Row gutter={10}>
                         <Col span={8}>{item.label}</Col>
                         <Col span={16} style={{ color: "#999" }}>
-                          {item.title}
+                          {item.value}
                         </Col>
                       </Row>
                     </List.Item>

@@ -13,7 +13,7 @@ export class TransformInterceptor implements NestInterceptor {
     return next.handle().pipe(
       map((data) => ({
         code: 200,
-        result: data,
+        data,
         timeStamp: Date.now(),
       })),
     );

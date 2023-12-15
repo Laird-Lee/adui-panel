@@ -159,6 +159,17 @@
           "字典表"
         ]
       }
+    },
+    "/api/system/info": {
+      "get": {
+        "operationId": "SystemController_getSystemInfo",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
     }
   },
   "info": {

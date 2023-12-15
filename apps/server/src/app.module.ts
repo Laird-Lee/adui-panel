@@ -7,6 +7,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { TypeOrmConfigService } from './database/typeorm-config.service';
 import { DataSource, DataSourceOptions } from 'typeorm';
 import { DictModule } from './dict/dict.module';
+import { SystemModule } from './system/system.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { DictModule } from './dict/dict.module';
       },
     }),
     DictModule,
+    SystemModule,
   ],
   controllers: [],
   providers: [],
