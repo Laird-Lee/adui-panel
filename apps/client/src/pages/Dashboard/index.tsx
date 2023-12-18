@@ -5,6 +5,10 @@ import GitHubCalendar from "react-github-calendar";
 import { MonitorChart } from "../../component/Charts/MonitorChart.tsx";
 import { useSystemInfo } from "../../api/system.ts";
 import { useEffect, useState } from "react";
+import dayjs from "dayjs";
+import duration from "dayjs/plugin/duration";
+
+dayjs.extend(duration);
 
 interface ISysInfo {
   key: string;
@@ -35,12 +39,12 @@ const Dashboard = () => {
       value: "Ant Design Title 1"
     },
     {
-      key: "uptime",
+      key: "startTime",
       label: "启动时间",
       value: "Ant Design Title 1"
     },
     {
-      key: "runtime",
+      key: "uptime",
       label: "运行时间",
       value: "Ant Design Title 1"
     }
@@ -69,11 +73,17 @@ const Dashboard = () => {
     }
   ];
   const [sysInfo, setSysInfo] = useState<ISysInfo[]>([]);
-  const { loading, response, error } = useSystemInfo();
-  console.log(loading, response, error);
+  const { loading, response } = useSystemInfo();
+
+  const formatTime = (val: number) => {
+    const dur = dayjs.duration(val, "second");
+    const hours = Math.floor(dur.asHours());
+    const minutes = Math.floor(dur.asMinutes()) - hours * 60;
+    const seconds = dur.asSeconds() - hours * 60 * 60 - minutes * 60;
+    return `${hours}小时${minutes}分钟${seconds}秒`;
+  };
   useEffect(() => {
     if (response) {
-      console.log(response?.data);
       const list = data.map((x) => {
         if (response?.data[x.key]) {
           return {
@@ -82,6 +92,14 @@ const Dashboard = () => {
           };
         } else {
           return x;
+        }
+      });
+      list.forEach((x) => {
+        if (x.key === "uptime") {
+          x.value = formatTime(+x.value);
+        }
+        if (x.key === "startTime") {
+          x.value = dayjs().add(-response.data["uptime"], "seconds").format("YYYY-MM-DD HH:mm:ss");
         }
       });
       setSysInfo(list);

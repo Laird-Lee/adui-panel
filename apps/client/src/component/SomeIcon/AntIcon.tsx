@@ -5,9 +5,10 @@ type TAntIcon = {
   name: string;
   type?: string;
   twoToneColor?: string;
+  style?: React.CSSProperties;
 };
 
-const AntIcon = ({ name, type, twoToneColor }: TAntIcon) => {
+const AntIcon = ({ name, type, twoToneColor, style }: TAntIcon) => {
   let IconComponent;
   if (name.split("-").length > 1) {
     IconComponent = createFromIconfontCN({
@@ -21,11 +22,11 @@ const AntIcon = ({ name, type, twoToneColor }: TAntIcon) => {
       {name.split("-").length > 1 ? (
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-expect-error
-        <IconComponent type={name} />
+        <IconComponent type={name} style={style} />
       ) : (
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-expect-error
-        <IconComponent type={type} twoToneColor={twoToneColor} />
+        <IconComponent type={type} twoToneColor={twoToneColor} style={style} />
       )}
     </>
   );
